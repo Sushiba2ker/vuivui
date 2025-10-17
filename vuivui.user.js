@@ -8,5 +8,5 @@
 // @match        *://www.rophim.li/*
 // @run-at       document-start
 // @grant        none
-// @require      https://raw.githubusercontent.com/your-username/your-repo/main/Bypas-vip-rophim.js
+// @require      https://raw.githubusercontent.com/Sushiba2ker/vuivui/main/vuivui.js
 // ==/UserScript==
