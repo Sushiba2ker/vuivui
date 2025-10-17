@@ -422,21 +422,26 @@ var utils = {
             corner.style.position = 'fixed';
             corner.style.top = '20px';
             corner.style.right = '20px';
-            corner.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-            corner.style.borderRadius = '16px';
-            corner.style.padding = '2px';
             corner.style.zIndex = '999999';
-            corner.style.animation = 'slideInRight 0.5s ease';
-            corner.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+            corner.style.fontFamily = 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif';
+            corner.style.animation = 'slideInRight 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)';
             corner.innerHTML = `
-                <div id="ft-status-inner" style="background:#1a1a2e;border-radius:14px;padding:16px 20px;min-width:280px">
-                    <div id="ft-status-text" style="display:flex;align-items:center;gap:12px;color:#fff;font-size:14px;font-weight:500">
-                        <span id="ft-status-icon" style="font-size:24px;animation:pulse 2s infinite"></span>
-                        <span id="ft-status-message-text"></span>
+                <div id="ft-status-inner" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; min-width: 280px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);">
+                    <div style="font-size: 20px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
+                        <span id="ft-status-icon"></span>
                     </div>
+                    <div id="ft-status-message-text" style="color: #333; font-size: 14px; font-weight: 500; flex: 1;"></div>
+                    <div id="ft-status-close" style="cursor: pointer; color: #999; font-size: 18px; transition: all 0.2s ease; line-height: 1;">×</div>
                 </div>
             `;
             document.documentElement.appendChild(corner);
+            
+            // Add close functionality
+            const closeBtn = document.getElementById('ft-status-close');
+            closeBtn.addEventListener('click', () => {
+                corner.style.animation = 'fadeOut 0.3s ease forwards';
+                setTimeout(() => corner.remove(), 300);
+            });
         }
         const iconEl = document.getElementById('ft-status-icon');
         const textEl = document.getElementById('ft-status-message-text');
@@ -444,9 +449,11 @@ var utils = {
         textEl.textContent = text;
         if (autoHide) {
             setTimeout(() => {
-                corner.style.animation = 'fadeOut 0.5s ease forwards';
-                setTimeout(() => corner.remove(), 500);
-            }, 3000);
+                if (corner) {
+                    corner.style.animation = 'fadeOut 0.3s ease forwards';
+                    setTimeout(() => corner.remove(), 300);
+                }
+            }, 5000);
         }
     }
 
